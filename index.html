@@ -216,7 +216,7 @@
 
       .name-row {
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr;
         gap: 8px;
       }
 
@@ -238,7 +238,9 @@
         color: #fff;
         background: linear-gradient(90deg, var(--accent), #d9612b);
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.25s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.25s ease;
       }
 
       .customize button:hover {
@@ -432,7 +434,6 @@
             placeholder="Enter a name to personalize"
             maxlength="36"
           />
-          <button id="nameBtn" type="button">Set Name</button>
         </div>
         <p id="personalLine" class="personal-line"></p>
         <button id="musicBtn" class="music-btn" type="button">
@@ -482,7 +483,6 @@
       }
 
       const nameInput = document.getElementById("nameInput");
-      const nameBtn = document.getElementById("nameBtn");
       const personalLine = document.getElementById("personalLine");
 
       const updateName = () => {
@@ -498,7 +498,6 @@
         }
       };
 
-      nameBtn.addEventListener("click", updateName);
       nameInput.addEventListener("input", updateName);
 
       const musicBtn = document.getElementById("musicBtn");
