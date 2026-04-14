@@ -137,6 +137,51 @@
         color: var(--txt);
       }
 
+      .music-btn {
+        all: unset;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        background: rgba(255, 255, 255, 0.09);
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        color: var(--mint);
+      }
+
+      .music-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: var(--mint);
+        transform: scale(1.08);
+      }
+
+      .music-btn:active {
+        transform: scale(0.95);
+      }
+
+      .music-btn.playing {
+        animate: pulse-glow 1.8s ease-in-out infinite;
+      }
+
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 12px rgba(126, 255, 212, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 24px rgba(126, 255, 212, 0.8);
+        }
+      }
+
       .title-wrap {
         text-align: left;
       }
@@ -400,7 +445,17 @@
     <main class="shell" role="main">
       <header class="header">
         <p class="top">Sinhala & Tamil New Year</p>
-        <p class="year-chip">ALUTH AVURUDU</p>
+        <div class="header-controls">
+          <p class="year-chip">ALUTH AVURUDU</p>
+          <button
+            class="music-btn playing"
+            id="musicBtn"
+            aria-label="Play/Pause music"
+            title="Play/Pause music"
+          >
+            ♪
+          </button>
+        </div>
       </header>
 
       <section class="title-wrap">
@@ -646,6 +701,7 @@
       let audioContext;
       let started = false;
       let timer;
+      const musicBtn = document.getElementById("musicBtn");
       const festiveScale = [
         { lead: 523.25, bass: 261.63, h1: 659.25, h2: 783.99 },
         { lead: 587.33, bass: 293.66, h1: 698.46, h2: 880 },
@@ -687,6 +743,18 @@
         timer = window.setTimeout(playLoop, 420);
       };
 
+      const stopMusic = () => {
+        if (!started) {
+          return;
+        }
+        clearTimeout(timer);
+        if (audioContext && audioContext.state !== "suspended") {
+          audioContext.suspend();
+        }
+        started = false;
+        musicBtn.classList.remove("playing");
+      };
+
       const startMusic = async () => {
         if (started) {
           return;
@@ -701,12 +769,23 @@
         }
 
         started = true;
+        musicBtn.classList.add("playing");
         playLoop();
+      };
+
+      const toggleMusic = async () => {
+        if (started) {
+          stopMusic();
+        } else {
+          await startMusic();
+        }
       };
 
       const tryAuto = () => {
         startMusic().catch(() => {});
       };
+
+      musicBtn.addEventListener("click", toggleMusic);
 
       tryAuto();
       window.addEventListener("load", tryAuto, { once: true });
