@@ -214,24 +214,12 @@
         animation: slideUp 0.9s ease 0.52s both;
       }
 
-      .name-row {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .customize input,
       .customize button {
         border: 1px solid rgba(58, 29, 20, 0.2);
         border-radius: 10px;
         font-family: inherit;
         font-size: 0.98rem;
         padding: 10px 12px;
-      }
-
-      .customize input {
-        color: var(--ink);
-        background: rgba(255, 255, 255, 0.7);
       }
 
       .customize button {
@@ -251,18 +239,6 @@
       .music-btn {
         justify-self: center;
         min-width: 170px;
-      }
-
-      .personal-line {
-        margin: 2px 0 6px;
-        text-align: center;
-        font-size: 1rem;
-        color: #6f3724;
-        min-height: 1.4em;
-      }
-
-      .personal-line.is-visible {
-        animation: lineReveal 0.6s ease;
       }
 
       .spark {
@@ -404,10 +380,6 @@
           border-radius: 18px;
         }
 
-        .name-row {
-          grid-template-columns: 1fr;
-        }
-
         .sun {
           width: 160px;
           height: 160px;
@@ -427,15 +399,6 @@
       <h1>Happy Sinhala & Tamil New Year</h1>
 
       <section class="customize" aria-label="Personalize your wish">
-        <div class="name-row">
-          <input
-            id="nameInput"
-            type="text"
-            placeholder="Enter a name to personalize"
-            maxlength="36"
-          />
-        </div>
-        <p id="personalLine" class="personal-line"></p>
         <button id="musicBtn" class="music-btn" type="button">
           Play festive music
         </button>
@@ -481,24 +444,6 @@
         spark.style.opacity = `${0.3 + Math.random() * 0.6}`;
         document.body.appendChild(spark);
       }
-
-      const nameInput = document.getElementById("nameInput");
-      const personalLine = document.getElementById("personalLine");
-
-      const updateName = () => {
-        const cleanedName = nameInput.value.trim();
-        personalLine.textContent = cleanedName
-          ? `A very joyful New Year to you, ${cleanedName}!`
-          : "";
-        personalLine.classList.remove("is-visible");
-        if (cleanedName) {
-          window.requestAnimationFrame(() => {
-            personalLine.classList.add("is-visible");
-          });
-        }
-      };
-
-      nameInput.addEventListener("input", updateName);
 
       const musicBtn = document.getElementById("musicBtn");
       let audioContext;
