@@ -554,7 +554,9 @@
       <h1>Happy Sinhala & Tamil New Year</h1>
 
       <section class="customize" aria-label="Personalize your wish">
-        <button id="musicBtn" class="music-btn" type="button">Enjoy</button>
+        <button id="musicBtn" class="music-btn" type="button">
+          Enjoy the Music
+        </button>
       </section>
 
       <p class="wish sinhala">
@@ -641,7 +643,7 @@
         }
 
         isPlaying = !isPlaying;
-        musicBtn.textContent = isPlaying ? "Enjoy" : "Enjoy";
+        musicBtn.textContent = isPlaying ? "Pause the Music" : "Enjoy the Music";
 
         if (isPlaying) {
           playNextNote();
