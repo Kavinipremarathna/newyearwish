@@ -43,10 +43,12 @@
             transparent 30%
           ),
           linear-gradient(140deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+        background-size: 120% 120%;
         display: grid;
         place-items: center;
         overflow: hidden;
         padding: 20px;
+        animation: gradientShift 12s ease-in-out infinite;
       }
 
       .sun {
@@ -85,6 +87,7 @@
           );
         background-size: 45px 45px;
         pointer-events: none;
+        animation: patternDrift 14s linear infinite;
       }
 
       .card {
@@ -112,6 +115,7 @@
         text-transform: uppercase;
         padding: 7px 14px;
         border-radius: 999px;
+        animation: badgeFloat 3.8s ease-in-out 0.4s infinite;
       }
 
       h1 {
@@ -121,7 +125,9 @@
         font-size: clamp(2rem, 4.6vw, 3.6rem);
         color: var(--accent);
         text-shadow: 0 4px 18px var(--glow);
-        animation: slideUp 0.9s ease 0.15s both;
+        animation:
+          slideUp 0.9s ease 0.15s both,
+          titleGlow 4.5s ease-in-out 1s infinite;
       }
 
       .wish {
@@ -232,6 +238,12 @@
         color: #fff;
         background: linear-gradient(90deg, var(--accent), #d9612b);
         cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.25s ease;
+      }
+
+      .customize button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(185, 50, 42, 0.28);
       }
 
       .music-btn {
@@ -245,6 +257,10 @@
         font-size: 1rem;
         color: #6f3724;
         min-height: 1.4em;
+      }
+
+      .personal-line.is-visible {
+        animation: lineReveal 0.6s ease;
       }
 
       .spark {
@@ -338,6 +354,45 @@
         to {
           opacity: 1;
           transform: translateY(0);
+        }
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      @keyframes patternDrift {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(35px, -25px, 0);
+        }
+      }
+
+      @keyframes badgeFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      @keyframes titleGlow {
+        0%,
+        100% {
+          text-shadow: 0 4px 18px var(--glow);
+        }
+        50% {
+          text-shadow: 0 6px 26px rgba(185, 50, 42, 0.45);
         }
       }
 
@@ -435,6 +490,12 @@
         personalLine.textContent = cleanedName
           ? `A very joyful New Year to you, ${cleanedName}!`
           : "";
+        personalLine.classList.remove("is-visible");
+        if (cleanedName) {
+          window.requestAnimationFrame(() => {
+            personalLine.classList.add("is-visible");
+          });
+        }
       };
 
       nameBtn.addEventListener("click", updateName);
@@ -559,6 +620,11 @@
       document.addEventListener("click", (event) => {
         createBurst(event.clientX, event.clientY);
       });
+      window.setInterval(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * (window.innerHeight * 0.55);
+        createBurst(x, y);
+      }, 1800);
       animateFireworks();
     </script>
   </body>
