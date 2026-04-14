@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sinhala & Tamil New Year Wishes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&family=Noto+Serif+Tamil:wght@400;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-1: #f8e8d0;
+        --bg-2: #f6c98a;
+        --bg-3: #d7632b;
+        --card: rgba(255, 249, 238, 0.9);
+        --ink: #3a1d14;
+        --accent: #b9322a;
+        --accent-2: #207a43;
+        --glow: rgba(185, 50, 42, 0.26);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "DM Serif Display", Georgia, serif;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at 12% 18%,
+            rgba(255, 255, 255, 0.7) 0 12%,
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 86% 78%,
+            rgba(255, 229, 180, 0.7) 0 10%,
+            transparent 30%
+          ),
+          linear-gradient(140deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        padding: 20px;
+      }
+
+      .sun {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        top: -70px;
+        right: -40px;
+        background: radial-gradient(
+          circle,
+          #fff8d6 5%,
+          #ffd06a 45%,
+          rgba(255, 166, 0, 0.2) 75%
+        );
+        filter: blur(1px);
+        animation: floatSun 4s ease-in-out infinite;
+      }
+
+      .pattern {
+        position: absolute;
+        inset: 0;
+        opacity: 0.22;
+        background-image:
+          linear-gradient(
+            45deg,
+            transparent 45%,
+            rgba(255, 255, 255, 0.7) 49%,
+            transparent 52%
+          ),
+          linear-gradient(
+            -45deg,
+            transparent 45%,
+            rgba(255, 255, 255, 0.6) 49%,
+            transparent 52%
+          );
+        background-size: 45px 45px;
+        pointer-events: none;
+      }
+
+      .card {
+        position: relative;
+        width: min(880px, 100%);
+        background: var(--card);
+        border: 2px solid rgba(58, 29, 20, 0.12);
+        border-radius: 24px;
+        padding: 36px 26px 30px;
+        box-shadow:
+          0 14px 40px rgba(58, 29, 20, 0.18),
+          0 0 0 8px rgba(255, 255, 255, 0.2) inset;
+        backdrop-filter: blur(1px);
+        animation: revealCard 1s ease;
+      }
+
+      .badge {
+        width: fit-content;
+        margin: 0 auto 14px;
+        background: linear-gradient(90deg, var(--accent), #d9612b);
+        color: #fff;
+        letter-spacing: 0.08em;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        padding: 7px 14px;
+        border-radius: 999px;
+      }
+
+      h1 {
+        margin: 8px 0 8px;
+        text-align: center;
+        line-height: 1.2;
+        font-size: clamp(2rem, 4.6vw, 3.6rem);
+        color: var(--accent);
+        text-shadow: 0 4px 18px var(--glow);
+        animation: slideUp 0.9s ease 0.15s both;
+      }
+
+      .wish {
+        text-align: center;
+        margin: 6px auto;
+        max-width: 760px;
+        line-height: 1.5;
+        animation: slideUp 0.9s ease both;
+      }
+
+      .sinhala {
+        font-family: "Noto Serif Sinhala", serif;
+        font-size: clamp(1.22rem, 2.6vw, 1.65rem);
+        animation-delay: 0.28s;
+      }
+
+      .tamil {
+        font-family: "Noto Serif Tamil", serif;
+        font-size: clamp(1.08rem, 2.35vw, 1.55rem);
+        animation-delay: 0.42s;
+      }
+
+      .english {
+        font-size: clamp(1rem, 2.2vw, 1.3rem);
+        color: #5e2f20;
+        animation-delay: 0.56s;
+      }
+
+      .divider {
+        width: 92px;
+        height: 3px;
+        border-radius: 20px;
+        margin: 20px auto 14px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          var(--accent-2),
+          transparent
+        );
+        animation: pulse 2.6s ease-in-out infinite;
+      }
+
+      .footer-note {
+        text-align: center;
+        font-style: italic;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
+        color: var(--accent-2);
+        margin-top: 12px;
+        animation: fadeIn 1.1s ease 0.7s both;
+      }
+
+      .spark {
+        position: absolute;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #ffcf4f;
+        box-shadow: 0 0 12px rgba(255, 207, 79, 0.7);
+        animation: drift 8s linear infinite;
+      }
+
+      @keyframes revealCard {
+        from {
+          transform: translateY(16px) scale(0.98);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(14px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scaleX(0.88);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scaleX(1.06);
+          opacity: 1;
+        }
+      }
+
+      @keyframes floatSun {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(8px);
+        }
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translateY(0) scale(0.6);
+          opacity: 0;
+        }
+        12% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-430px) scale(1.15);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .card {
+          padding: 28px 18px 24px;
+          border-radius: 18px;
+        }
+
+        .sun {
+          width: 160px;
+          height: 160px;
+          top: -45px;
+          right: -30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sun" aria-hidden="true"></div>
+    <div class="pattern" aria-hidden="true"></div>
+
+    <main class="card" role="main">
+      <p class="badge">Aluth Avurudu & Puthandu 2026</p>
+      <h1>Happy Sinhala & Tamil New Year</h1>
+
+      <p class="wish sinhala">
+        සුභ අලුත් අවුරුද්දක් වේවා!<br />සාමය, සතුට, සෞභාග්‍ය පිරුණු අලුත්
+        ආරම්භයක් ඔබට ලැබේවා.
+      </p>
+
+      <p class="wish tamil">
+        இனிய சிங்கள தமிழ் புத்தாண்டு நல்வாழ்த்துக்கள்!<br />அமைதி, அன்பு, வளம்
+        நிரம்பிய புதிய தொடக்கம் உங்கள் வாழ்வில் மலரட்டும்.
+      </p>
+
+      <p class="wish english">
+        May this New Year bring bright beginnings, sweet moments, and lasting
+        happiness to you and your family.
+      </p>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="footer-note">With love, Kavinii</p>
+    </main>
+
+    <script>
+      const particleCount = 24;
+      for (let i = 0; i < particleCount; i += 1) {
+        const spark = document.createElement("span");
+        spark.className = "spark";
+        spark.style.left = `${Math.random() * 100}%`;
+        spark.style.bottom = `${-20 - Math.random() * 200}px`;
+        spark.style.animationDelay = `${Math.random() * 8}s`;
+        spark.style.animationDuration = `${6 + Math.random() * 6}s`;
+        spark.style.opacity = `${0.3 + Math.random() * 0.6}`;
+        document.body.appendChild(spark);
+      }
+    </script>
+  </body>
+</html>
