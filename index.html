@@ -139,6 +139,52 @@
         line-height: 1.5;
       }
 
+      .aurudu-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        width: min(760px, 100%);
+        margin: 14px auto 10px;
+        animation: slideUp 0.9s ease 0.3s both;
+      }
+
+      .art-card {
+        margin: 0;
+        padding: 12px 10px 10px;
+        border-radius: 18px;
+        border: 1px solid rgba(58, 29, 20, 0.12);
+        background: rgba(255, 255, 255, 0.56);
+        box-shadow: 0 8px 18px rgba(58, 29, 20, 0.08);
+        text-align: center;
+      }
+
+      .art-card svg {
+        width: 100%;
+        max-width: 140px;
+        aspect-ratio: 1;
+        display: block;
+        margin: 0 auto 8px;
+      }
+
+      .art-caption {
+        display: block;
+        font-size: 0.86rem;
+        color: #6b3a22;
+        letter-spacing: 0.02em;
+      }
+
+      .art-sun {
+        animation: smallFloat 4s ease-in-out infinite;
+      }
+
+      .art-lamp {
+        animation: smallFloat 4.6s ease-in-out 0.4s infinite;
+      }
+
+      .art-pot {
+        animation: smallFloat 5s ease-in-out 0.7s infinite;
+      }
+
       .wish-line {
         display: block;
         opacity: 0;
@@ -376,6 +422,16 @@
         }
       }
 
+      @keyframes smallFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
       @media (max-width: 640px) {
         body {
           place-items: stretch;
@@ -405,6 +461,30 @@
           margin-top: 4px;
           margin-bottom: 6px;
           font-size: clamp(1.55rem, 8vw, 2rem);
+        }
+
+        .aurudu-gallery {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          margin: 10px auto 8px;
+          width: 100%;
+        }
+
+        .art-card {
+          display: grid;
+          grid-template-columns: 84px 1fr;
+          align-items: center;
+          text-align: left;
+          padding: 10px 12px;
+        }
+
+        .art-card svg {
+          width: 84px;
+          margin: 0;
+        }
+
+        .art-caption {
+          font-size: 0.8rem;
         }
 
         .badge {
@@ -572,6 +652,118 @@
 
       const canvas = document.getElementById("fireworks");
       const context = canvas.getContext("2d");
+
+      <section class="aurudu-gallery" aria-label="Aurudu themed illustrations">
+        <figure class="art-card art-sun">
+          <svg
+            viewBox="0 0 160 160"
+            role="img"
+            aria-label="Aurudu sun and rays"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fff8c7" />
+                <stop offset="55%" stop-color="#ffd35c" />
+                <stop offset="100%" stop-color="#ff9a2e" />
+              </linearGradient>
+            </defs>
+            <rect width="160" height="160" rx="28" fill="#fff7ea" />
+            <g transform="translate(80 70)">
+              <circle r="28" fill="url(#sunGrad)" />
+              <g stroke="#ffb23d" stroke-width="5" stroke-linecap="round">
+                <line x1="0" y1="-46" x2="0" y2="-62" />
+                <line x1="0" y1="46" x2="0" y2="62" />
+                <line x1="-46" y1="0" x2="-62" y2="0" />
+                <line x1="46" y1="0" x2="62" y2="0" />
+                <line x1="-33" y1="-33" x2="-45" y2="-45" />
+                <line x1="33" y1="33" x2="45" y2="45" />
+                <line x1="33" y1="-33" x2="45" y2="-45" />
+                <line x1="-33" y1="33" x2="-45" y2="45" />
+              </g>
+            </g>
+          </svg>
+          <figcaption class="art-caption">Aurudu sun</figcaption>
+        </figure>
+
+        <figure class="art-card art-lamp">
+          <svg
+            viewBox="0 0 160 160"
+            role="img"
+            aria-label="Traditional oil lamp"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="160" height="160" rx="28" fill="#fff7ea" />
+            <path
+              d="M80 28c14 18 22 30 22 46 0 13-10 24-22 24s-22-11-22-24c0-16 8-28 22-46Z"
+              fill="#ffd86a"
+            />
+            <path
+              d="M56 86c7 10 14 16 24 16s17-6 24-16c0 24-11 39-24 39S56 110 56 86Z"
+              fill="#b9322a"
+              opacity="0.92"
+            />
+            <path
+              d="M56 107h48"
+              stroke="#207a43"
+              stroke-width="6"
+              stroke-linecap="round"
+            />
+            <circle cx="80" cy="46" r="7" fill="#fff0a8" />
+            <path
+              d="M80 38c-5 10-12 15-12 24 0 8 5 14 12 14s12-6 12-14c0-9-7-14-12-24Z"
+              fill="#ff9f2e"
+            />
+          </svg>
+          <figcaption class="art-caption">Oil lamp for blessings</figcaption>
+        </figure>
+
+        <figure class="art-card art-pot">
+          <svg
+            viewBox="0 0 160 160"
+            role="img"
+            aria-label="Milk rice cooking pot"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="160" height="160" rx="28" fill="#fff7ea" />
+            <path
+              d="M48 74c0-14 14-24 32-24s32 10 32 24c0 16-10 46-32 46S48 90 48 74Z"
+              fill="#d26a2f"
+            />
+            <path
+              d="M56 66c10-9 38-9 48 0"
+              stroke="#fff0d8"
+              stroke-width="7"
+              stroke-linecap="round"
+            />
+            <path
+              d="M40 76h80"
+              stroke="#7b3f21"
+              stroke-width="7"
+              stroke-linecap="round"
+            />
+            <path
+              d="M68 38c-4 9-4 18 0 24"
+              stroke="#207a43"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M80 32c-4 10-4 20 0 30"
+              stroke="#207a43"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M92 38c-4 9-4 18 0 24"
+              stroke="#207a43"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <figcaption class="art-caption">Milk rice pot</figcaption>
+        </figure>
+      </section>;
       const bursts = [];
 
       const resizeCanvas = () => {
