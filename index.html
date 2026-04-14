@@ -129,7 +129,33 @@
         margin: 6px auto;
         max-width: 760px;
         line-height: 1.5;
-        animation: slideUp 0.9s ease both;
+      }
+
+      .wish-line {
+        display: block;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: lineReveal 0.75s ease forwards;
+      }
+
+      .line-1 {
+        animation-delay: 0.7s;
+      }
+
+      .line-2 {
+        animation-delay: 1.15s;
+      }
+
+      .line-3 {
+        animation-delay: 1.6s;
+      }
+
+      .line-4 {
+        animation-delay: 2.05s;
+      }
+
+      .line-5 {
+        animation-delay: 2.5s;
       }
 
       .sinhala {
@@ -304,6 +330,17 @@
         }
       }
 
+      @keyframes lineReveal {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       @media (max-width: 640px) {
         .card {
           padding: 28px 18px 24px;
@@ -349,18 +386,27 @@
       </section>
 
       <p class="wish sinhala">
-        සුභ අලුත් අවුරුද්දක් වේවා!<br />සාමය, සතුට, සෞභාග්‍ය පිරුණු අලුත්
-        ආරම්භයක් ඔබට ලැබේවා.
+        <span class="wish-line line-1">සුභ අලුත් අවුරුද්දක් වේවා!</span>
+        <span class="wish-line line-2"
+          >සාමය, සතුට, සෞභාග්‍ය පිරුණු අලුත් ආරම්භයක් ඔබට ලැබේවා.</span
+        >
       </p>
 
       <p class="wish tamil">
-        இனிய சிங்கள தமிழ் புத்தாண்டு நல்வாழ்த்துக்கள்!<br />அமைதி, அன்பு, வளம்
-        நிரம்பிய புதிய தொடக்கம் உங்கள் வாழ்வில் மலரட்டும்.
+        <span class="wish-line line-3"
+          >இனிய சிங்கள தமிழ் புத்தாண்டு நல்வாழ்த்துக்கள்!</span
+        >
+        <span class="wish-line line-4"
+          >அமைதி, அன்பு, வளம் நிரம்பிய புதிய தொடக்கம் உங்கள் வாழ்வில்
+          மலரட்டும்.</span
+        >
       </p>
 
       <p class="wish english">
-        May this New Year bring bright beginnings, sweet moments, and lasting
-        happiness to you and your family.
+        <span class="wish-line line-5"
+          >May this New Year bring bright beginnings, sweet moments, and lasting
+          happiness to you and your family.</span
+        >
       </p>
 
       <div class="divider" aria-hidden="true"></div>
