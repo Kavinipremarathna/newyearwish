@@ -43,6 +43,7 @@
         overflow: hidden;
         display: grid;
         place-items: center;
+        padding: 8px;
       }
 
       #fxCanvas {
@@ -93,9 +94,9 @@
       .shell {
         position: relative;
         z-index: 3;
-        width: min(920px, 94vw);
+        width: min(920px, 96vw);
         border-radius: 28px;
-        padding: 22px;
+        padding: 18px;
         border: 1px solid var(--line);
         background: linear-gradient(
           135deg,
@@ -106,6 +107,8 @@
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
         animation: shellEnter 1s ease;
+        transform-origin: center center;
+        will-change: transform;
       }
 
       .header {
@@ -183,40 +186,40 @@
       }
 
       .content {
-        margin-top: 18px;
+        margin-top: 14px;
         display: grid;
         grid-template-columns: 1.05fr 1fr;
-        gap: 20px;
+        gap: 14px;
       }
 
       .panel {
         border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 20px;
         background: rgba(8, 12, 26, 0.36);
-        padding: 16px;
+        padding: 13px;
       }
 
       .en {
-        font-size: clamp(0.92rem, 1.65vw, 1.02rem);
-        line-height: 1.82;
+        font-size: clamp(0.86rem, 1.45vw, 0.97rem);
+        line-height: 1.72;
         color: var(--muted);
         animation: rise 1s ease 0.7s both;
       }
 
       .si {
-        margin-top: 12px;
+        margin-top: 10px;
         font-family: "Noto Serif Sinhala", serif;
-        font-size: clamp(0.9rem, 1.55vw, 1rem);
-        line-height: 1.92;
+        font-size: clamp(0.83rem, 1.38vw, 0.93rem);
+        line-height: 1.78;
         color: #ffd8b8;
         animation: rise 1s ease 0.92s both;
       }
 
       .ta {
-        margin-top: 10px;
+        margin-top: 8px;
         font-family: "Noto Serif Tamil", serif;
-        font-size: clamp(0.88rem, 1.55vw, 0.98rem);
-        line-height: 1.95;
+        font-size: clamp(0.81rem, 1.38vw, 0.91rem);
+        line-height: 1.8;
         color: #ffc0db;
         animation: rise 1s ease 1.12s both;
       }
@@ -224,15 +227,15 @@
       .visual-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        gap: 10px;
       }
 
       .tile {
         border: 1px solid rgba(255, 255, 255, 0.17);
         border-radius: 16px;
         background: rgba(255, 255, 255, 0.05);
-        padding: 12px;
-        min-height: 120px;
+        padding: 10px;
+        min-height: 102px;
         display: grid;
         place-items: center;
         text-align: center;
@@ -330,48 +333,60 @@
 
       @media (max-width: 640px) {
         body {
-          place-items: stretch;
+          place-items: center;
+          padding: 6px;
         }
 
         .shell {
-          width: 100vw;
-          min-height: 100vh;
-          min-height: 100dvh;
-          border-radius: 0;
-          border-left: 0;
-          border-right: 0;
-          padding: max(18px, env(safe-area-inset-top))
-            max(12px, env(safe-area-inset-right))
-            max(14px, env(safe-area-inset-bottom))
-            max(12px, env(safe-area-inset-left));
+          width: min(520px, 98vw);
+          border-radius: 20px;
+          padding: max(14px, env(safe-area-inset-top))
+            max(10px, env(safe-area-inset-right))
+            max(10px, env(safe-area-inset-bottom))
+            max(10px, env(safe-area-inset-left));
         }
 
         .header {
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
 
         .top {
-          font-size: 0.64rem;
-          letter-spacing: 0.14em;
+          font-size: 0.58rem;
+          letter-spacing: 0.12em;
         }
 
         .year-chip {
-          font-size: 0.72rem;
-          padding: 6px 10px;
+          font-size: 0.66rem;
+          padding: 5px 8px;
+        }
+
+        .line {
+          width: 86px;
+          margin-top: 10px;
         }
 
         .visual-grid {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
         }
 
         .tile {
-          min-height: 100px;
-          padding: 10px;
+          min-height: 82px;
+          padding: 8px;
+        }
+
+        .tile svg {
+          width: min(70px, 100%);
+          margin-bottom: 6px;
+        }
+
+        .tile small {
+          font-size: 0.62rem;
         }
 
         .from {
           text-align: center;
-          margin-top: 12px;
+          margin-top: 10px;
         }
       }
     </style>
@@ -516,19 +531,36 @@
         </aside>
       </section>
 
-      <p class="from">WITH LOVE, KAVINII</p>
+      <p class="from">WITH LOVE, KAVINI</p>
     </main>
 
     <script>
       const cv = document.getElementById("fxCanvas");
       const ctx = cv.getContext("2d");
 
+      const shell = document.querySelector(".shell");
+
       const resize = () => {
         cv.width = window.innerWidth;
         cv.height = window.innerHeight;
       };
+
+      const fitOnePage = () => {
+        shell.style.transform = "scale(1)";
+        const maxW = window.innerWidth - 12;
+        const maxH = window.innerHeight - 12;
+        const neededW = shell.scrollWidth;
+        const neededH = shell.scrollHeight;
+        const scale = Math.min(1, maxW / neededW, maxH / neededH);
+        shell.style.transform = `scale(${scale})`;
+      };
+
       resize();
-      window.addEventListener("resize", resize);
+      fitOnePage();
+      window.addEventListener("resize", () => {
+        resize();
+        fitOnePage();
+      });
 
       const palette = ["#ffb347", "#ff5f86", "#7effd4", "#7db4ff", "#ffe0a3"];
       const stars = Array.from({ length: 80 }, () => ({
@@ -647,10 +679,10 @@
 
         const now = audioContext.currentTime;
         const n = festiveScale[idx % festiveScale.length];
-        playVoice(n.lead, "triangle", 0.045, now, now + 0.38);
-        playVoice(n.bass, "sine", 0.03, now, now + 0.44);
-        playVoice(n.h1, "sine", 0.013, now, now + 0.46);
-        playVoice(n.h2, "square", 0.008, now, now + 0.46);
+        playVoice(n.lead, "triangle", 0.03, now, now + 0.38);
+        playVoice(n.bass, "sine", 0.02, now, now + 0.44);
+        playVoice(n.h1, "sine", 0.009, now, now + 0.46);
+        playVoice(n.h2, "square", 0.005, now, now + 0.46);
         idx += 1;
         timer = window.setTimeout(playLoop, 420);
       };
