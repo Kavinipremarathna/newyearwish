@@ -1,223 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Year Experience ✨</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurudu Experience ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", sans-serif;
-      }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
 
-      body {
-        min-height: 100vh;
-        background: #000;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
+body{
+  min-height:100vh;
+  background: radial-gradient(circle at top,#7a0000,#2c0000 60%,#000);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
 
-      .bg {
-        position: fixed;
-        inset: 0;
-        background: radial-gradient(circle at 30% 30%, #111, #000 60%);
-        z-index: -2;
-      }
+.bg{
+  position:fixed;inset:0;
+  background: radial-gradient(circle at 30% 30%,#ffb70333,#fb850033,#000);
+  z-index:-2;
+}
 
-      .bg::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: url("https://grainy-gradients.vercel.app/noise.svg");
-        opacity: 0.05;
-      }
+/* 🪔 oil lamp glow */
+.lamp{
+  position:fixed;
+  bottom:20px;left:50%;
+  transform:translateX(-50%);
+  width:80px;height:80px;
+  background:radial-gradient(circle,#ffd60a,#fb8500);
+  border-radius:50%;
+  filter:blur(25px);
+  animation:flicker 1.5s infinite alternate;
+}
+@keyframes flicker{from{opacity:.7}to{opacity:1}}
 
-      .container {
-        text-align: center;
-        padding: 30px;
-      }
+/* 🥁 drum pulse */
+.drum{
+  position:fixed;
+  top:20px;right:20px;
+  width:20px;height:20px;
+  border-radius:50%;
+  background:#ffd60a;
+  animation:beat 1s infinite;
+}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.5)}
+}
 
-      h1 {
-        font-size: clamp(3rem, 7vw, 5rem);
-        font-weight: 600;
-        letter-spacing: -1px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 1.5s ease forwards;
-      }
+.cursor-glow{
+  position:fixed;
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,183,3,0.25),transparent 60%);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:-1;
+}
 
-      p {
-        margin-top: 15px;
-        font-size: clamp(1rem, 3vw, 1.2rem);
-        opacity: 0;
-        animation: fadeUp 1.5s ease forwards 0.5s;
-      }
+.container{text-align:center;padding:30px;z-index:2}
 
-      button {
-        margin-top: 30px;
-        padding: 12px 24px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.05);
-        color: #fff;
-        backdrop-filter: blur(10px);
-        cursor: pointer;
-        transition: 0.3s;
-      }
+h1{
+  font-size:clamp(3rem,8vw,6rem);
+  background:linear-gradient(90deg,#ffd60a,#ffb703,#fb8500);
+  -webkit-background-clip:text;color:transparent;
+}
 
-      button:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: scale(1.05);
-      }
+p{margin-top:15px;font-size:clamp(1rem,3vw,1.3rem);color:#ffe8a1}
 
-      .share-fab {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        border-radius: 50%;
-        width: 55px;
-        height: 55px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      }
+.share-btn{
+  margin-top:40px;padding:12px 22px;border-radius:999px;
+  background:linear-gradient(90deg,#ffd60a,#ffb703);
+  color:#3a0a00;font-weight:600;
+  cursor:pointer;position:relative;overflow:hidden;
+  display:inline-flex;gap:8px;align-items:center;
+}
 
-      @keyframes fadeUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+.share-btn svg{width:16px;height:16px}
 
-      canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-      }
-    </style>
-  </head>
+.share-btn::before{
+  content:"";position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.8),transparent);
+  transition:.5s;
+}
+.share-btn:hover::before{left:100%}
 
-  <body>
-    <div class="bg"></div>
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.6);transform:scale(0);animation:rippleEffect .6s linear}
+@keyframes rippleEffect{to{transform:scale(4);opacity:0}}
 
-    <canvas id="canvas"></canvas>
+canvas{position:fixed;top:0;left:0;z-index:-1}
 
-    <div class="container">
-      <h1 id="title">2026</h1>
-      <p id="text">A new year. A new chapter.</p>
-      <button onclick="reveal()">Enter</button>
-    </div>
+/* language toggle */
+.toggle{
+  position:fixed;top:20px;left:20px;
+  padding:6px 12px;border-radius:20px;
+  background:#ffd60a;color:#000;cursor:pointer;
+  font-size:0.8rem;
+}
 
-    <div class="share-fab" onclick="share()">↗</div>
+</style>
+</head>
+<body>
 
-    <script>
-      function reveal() {
-        document.getElementById("title").innerText = "Happy New Year ✨";
-        document.getElementById("text").innerText = "Make it count.";
-      }
+<div class="bg"></div>
+<div class="lamp"></div>
+<div class="drum"></div>
+<div class="cursor-glow" id="glow"></div>
+<div class="toggle" onclick="toggleLang()">සිංහල / EN</div>
 
-      // ✅ FIXED SHARE FUNCTION (safe + fallback)
-      function share() {
-        const url = location.href;
+<canvas id="canvas"></canvas>
 
-        // Try native share safely
-        if (navigator.share) {
-          navigator
-            .share({ title: "✨ New Year", url })
-            .catch(() => fallbackShare(url));
-        } else {
-          fallbackShare(url);
-        }
-      }
+<div class="container">
+  <h1 id="title">සුභ අලුත් අවුරුද්දක් වේවා ✨</h1>
+  <p id="text">ඔබට සතුට, සම්පන්නත්වය හා නව ආරම්භයන් පිරුණු වසරක් වේවා 🌞</p>
 
-      function fallbackShare(url) {
-        try {
-          // WhatsApp fallback (viral)
-          window.open(
-            `https://wa.me/?text=${encodeURIComponent("✨ Check this out 🎆\n" + url)}`,
-            "_blank",
-          );
-        } catch (e) {
-          // Final fallback: manual copy
-          try {
-            if (navigator.clipboard && window.isSecureContext) {
-              navigator.clipboard.writeText(url);
-              alert("Link copied! 🎉");
-            } else {
-              const input = document.createElement("input");
-              input.value = url;
-              document.body.appendChild(input);
-              input.select();
-              document.execCommand("copy");
-              input.remove();
-              alert("Link copied! 🎉");
-            }
-          } catch {
-            alert("Copy this link manually:\n" + url);
-          }
-        }
-      }
+  <div class="share-btn" onclick="handleShare(event)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="18" cy="5" r="3"></circle>
+      <circle cx="6" cy="12" r="3"></circle>
+      <circle cx="18" cy="19" r="3"></circle>
+    </svg>
+    <span>Share the joy</span>
+  </div>
+</div>
 
-      /* smooth particles */
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
+<script>
 
-      function resize() {
-        canvas.width = innerWidth;
-        canvas.height = innerHeight;
-      }
-      resize();
-      window.addEventListener("resize", resize);
+mousemove=e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'}
 
-      let dots = [];
-      for (let i = 0; i < 120; i++) {
-        dots.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-        });
-      }
+let sinhala=true;
+function toggleLang(){
+  sinhala=!sinhala;
+  if(sinhala){
+    title.innerText="අවුරුදු 2026 ✨";
+    text.innerText="ඔබට සතුට, සම්පන්නත්වය හා නව ආරම්භයන් පිරුණු වසරක් වේවා 🌞";
+  }else{
+    title.innerText="Happy New Year ✨";
+    text.innerText="Wishing you joy, prosperity & new beginnings 🌞";
+  }
+}
 
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+function handleShare(e){createRipple(e);share();burst(e.clientX,e.clientY)}
 
-        dots.forEach((d) => {
-          d.x += d.vx;
-          d.y += d.vy;
+function createRipple(e){
+  const b=e.currentTarget;
+  const c=document.createElement("span");
+  const d=Math.max(b.clientWidth,b.clientHeight);
+  const r=d/2;
+  c.style.width=c.style.height=d+'px';
+  c.style.left=e.clientX-b.getBoundingClientRect().left-r+'px';
+  c.style.top=e.clientY-b.getBoundingClientRect().top-r+'px';
+  c.classList.add('ripple');
+  b.appendChild(c);
+}
 
-          if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
-          if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+function share(){
+  const url=location.href;
+  if(navigator.share){navigator.share({title:'Aurudu Wishes ✨',url}).catch(()=>fallback(url))}
+  else fallback(url);
+}
 
-          ctx.fillStyle = "rgba(255,255,255,0.3)";
-          ctx.fillRect(d.x, d.y, 1.5, 1.5);
-        });
+function fallback(url){window.open(`https://wa.me/?text=${encodeURIComponent("🌞 සුබ අලුත් අවුරුද්දක් වේවා ✨\n"+url)}`,'_blank')}
 
-        requestAnimationFrame(animate);
-      }
+// firecracker particles
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();onresize=resize;
 
-      animate();
+let particles=[];
+function explode(x,y){
+  for(let i=0;i<40;i++){
+    particles.push({x,y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,life:100});
+  }
+}
 
-      /* TESTS */
-      console.assert(typeof reveal === "function", "Reveal missing");
-      console.assert(typeof share === "function", "Share missing");
-      console.assert(typeof fallbackShare === "function", "Fallback missing");
-    </script>
-  </body>
+function animate(){
+  ctx.fillStyle='rgba(0,0,0,0.2)';ctx.fillRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.life--;
+    ctx.fillStyle=`hsl(${Math.random()*60+20},100%,60%)`;
+    ctx.fillRect(p.x,p.y,2,2);
+  });
+  particles=particles.filter(p=>p.life>0);
+  requestAnimationFrame(animate);
+}
+animate();
+
+function burst(x,y){explode(x,y)}
+
+// tests
+console.assert(typeof toggleLang==='function','toggle missing');
+console.assert(typeof burst==='function','burst missing');
+
+</script>
+
+</body>
 </html>
