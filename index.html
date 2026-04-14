@@ -604,8 +604,15 @@
       let audioContext;
       let isPlaying = false;
       let noteTimer;
-      const melody = [
-        523.25, 659.25, 783.99, 659.25, 698.46, 587.33, 523.25, 493.88,
+      const tune = [
+        { lead: 523.25, bass: 261.63, harmony: [659.25, 783.99] },
+        { lead: 587.33, bass: 261.63, harmony: [659.25, 783.99] },
+        { lead: 659.25, bass: 293.66, harmony: [783.99, 987.77] },
+        { lead: 783.99, bass: 329.63, harmony: [880, 1046.5] },
+        { lead: 698.46, bass: 261.63, harmony: [659.25, 783.99] },
+        { lead: 659.25, bass: 246.94, harmony: [587.33, 740] },
+        { lead: 587.33, bass: 220, harmony: [523.25, 659.25] },
+        { lead: 523.25, bass: 246.94, harmony: [587.33, 698.46] },
       ];
       let noteIndex = 0;
 
@@ -615,22 +622,51 @@
         }
 
         const now = audioContext.currentTime;
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.type = "triangle";
-        osc.frequency.value = melody[noteIndex % melody.length];
+        const step = tune[noteIndex % tune.length];
 
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.44);
+        const leadOsc = audioContext.createOscillator();
+        const leadGain = audioContext.createGain();
+        leadOsc.type = "triangle";
+        leadOsc.frequency.value = step.lead;
+        leadGain.gain.setValueAtTime(0.0001, now);
+        leadGain.gain.exponentialRampToValueAtTime(0.09, now + 0.03);
+        leadGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.42);
+        leadOsc.connect(leadGain);
+        leadGain.connect(audioContext.destination);
+        leadOsc.start(now);
+        leadOsc.stop(now + 0.44);
 
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        osc.start(now);
-        osc.stop(now + 0.45);
+        const bassOsc = audioContext.createOscillator();
+        const bassGain = audioContext.createGain();
+        bassOsc.type = "sine";
+        bassOsc.frequency.value = step.bass;
+        bassGain.gain.setValueAtTime(0.0001, now);
+        bassGain.gain.exponentialRampToValueAtTime(0.05, now + 0.02);
+        bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.48);
+        bassOsc.connect(bassGain);
+        bassGain.connect(audioContext.destination);
+        bassOsc.start(now);
+        bassOsc.stop(now + 0.5);
+
+        step.harmony.forEach((frequency, harmonyIndex) => {
+          const harmonyOsc = audioContext.createOscillator();
+          const harmonyGain = audioContext.createGain();
+          harmonyOsc.type = harmonyIndex === 0 ? "sine" : "square";
+          harmonyOsc.frequency.value = frequency;
+          harmonyGain.gain.setValueAtTime(0.0001, now);
+          harmonyGain.gain.exponentialRampToValueAtTime(
+            harmonyIndex === 0 ? 0.018 : 0.012,
+            now + 0.02,
+          );
+          harmonyGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+          harmonyOsc.connect(harmonyGain);
+          harmonyGain.connect(audioContext.destination);
+          harmonyOsc.start(now);
+          harmonyOsc.stop(now + 0.52);
+        });
 
         noteIndex += 1;
-        noteTimer = window.setTimeout(playNextNote, 460);
+        noteTimer = window.setTimeout(playNextNote, 430);
       };
 
       musicBtn.addEventListener("click", async () => {
@@ -643,7 +679,9 @@
         }
 
         isPlaying = !isPlaying;
-        musicBtn.textContent = isPlaying ? "Pause the Music" : "Enjoy the Music";
+        musicBtn.textContent = isPlaying
+          ? "Pause the Music"
+          : "Enjoy the Music";
 
         if (isPlaying) {
           playNextNote();
